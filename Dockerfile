@@ -11,7 +11,7 @@ RUN set -e; for pkg in $(go list ./...); do \
 		go test -o "/tests/$(basename $pkg).test" -c $pkg; \
 	done
 
-FROM alpine:edge AS resource
+FROM alpine:3.7 AS resource
 RUN apk --no-cache add bash docker jq ca-certificates
 COPY --from=builder /assets /opt/resource
 RUN mv /opt/resource/ecr-login /usr/local/bin/docker-credential-ecr-login
